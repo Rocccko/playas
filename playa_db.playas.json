@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "664737ca266e3838ff2f2a95"
+  },
+  "nombre": "Playa de la Malvarrosa",
+  "ubicacion": "Valencia",
+  "descripcion": "Una de las playas más famosas de Valencia con arena dorada y un largo paseo marítimo."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4c6"
+  },
+  "nombre": "Playa de Gandía",
+  "ubicacion": "Gandía",
+  "descripcion": "Famosa por su gran extensión y por sus numerosas actividades acuáticas y deportivas."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4c7"
+  },
+  "nombre": "Playa del Postiguet",
+  "ubicacion": "Alicante",
+  "descripcion": "Situada en el corazón de Alicante, esta playa es ideal para familias y cuenta con un paseo marítimo muy animado."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4c8"
+  },
+  "nombre": "Playa de San Juan",
+  "ubicacion": "Alicante",
+  "descripcion": "Una extensa playa con arena fina y un ambiente animado, ideal para practicar deportes acuáticos."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4c9"
+  },
+  "nombre": "Playa de la Fossa",
+  "ubicacion": "Calpe",
+  "descripcion": "Con vistas impresionantes al Peñón de Ifach, esta playa es perfecta para disfrutar de aguas cristalinas y actividades al aire libre."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4ca"
+  },
+  "nombre": "Playa de Levante",
+  "ubicacion": "Benidorm",
+  "descripcion": "Una de las playas más concurridas y animadas, con una gran variedad de bares y restaurantes cercanos."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4cb"
+  },
+  "nombre": "Playa de Poniente",
+  "ubicacion": "Benidorm",
+  "descripcion": "Menos concurrida que la Playa de Levante, pero igualmente hermosa y con una oferta completa de servicios."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4cc"
+  },
+  "nombre": "Playa del Portet",
+  "ubicacion": "Moraira",
+  "descripcion": "Una pequeña y encantadora playa con aguas tranquilas y cristalinas, ideal para nadar y hacer snorkel."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4cd"
+  },
+  "nombre": "Playa de la Patacona",
+  "ubicacion": "Alboraya",
+  "descripcion": "Una extensión de la Playa de la Malvarrosa, menos concurrida y con un ambiente más relajado."
+},
+{
+  "_id": {
+    "$oid": "6658644eb1733096220de4ce"
+  },
+  "nombre": "Playa de la Granadella",
+  "ubicacion": "Jávea",
+  "descripcion": "Una cala espectacular rodeada de naturaleza, perfecta para bucear y disfrutar de aguas transparentes."
+}]
