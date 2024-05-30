@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Playas de la Comunidad Valenciana</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .formulario-agregar-playa {
+            display: none;
+        }
+        .show-formulario {
+            display: block !important;
+        }
+        .list-group-item {
+            padding: 1rem;
+        }
+        .playa-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .playa-details {
+            flex-grow: 1;
+        }
+        .eliminar-playa {
+            margin-left: 1rem;
+        }
+        .eliminar-playa i {
+            cursor: pointer;
+        }
+        .btn-agregar-playa {
+            margin: auto;
+            display: block;
+            width: 200px; /* Ajusta el ancho según tu preferencia */
+            font-size: 1.25rem; /* Ajusta el tamaño de fuente según tu preferencia */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 id="titulo" class="text-center mb-4">Playas de la Comunidad Valenciana</h1>
+        
+        <ul class="list-group">
+            <li class="list-group-item" th:each="playa : ${playas}">
+                <div class="playa-info">
+                    <div class="playa-details">
+                        <div>
+                            <span class="font-weight-bold text-primary">Playa:</span>
+                            <span th:text="${playa.nombre}">Nombre de la Playa</span>
+                        </div>
+                        <div>
+                            <span class="font-weight-bold text-primary">Ubicación:</span>
+                            <span><a th:href="'https://www.google.com/maps/search/?api=1&query=' + ${playa.ubicacion}" th:text="${playa.ubicacion}">Ver en Google Maps</a></span>
+                        </div>
+                        <div>
+                            <span class="font-weight-bold text-primary">Descripción:</span>
+                            <span th:text="${playa.descripcion}">Descripción</span>
+                        </div>
+                    </div>
+                    <div class="eliminar-playa" onclick="eliminarPlaya(event)">
+                        <i class="fas fa-trash-alt text-danger" th:data-playa-id="${playa.id}"></i>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <button class="btn btn-primary mt-4 btn-agregar-playa mb-4" onclick="document.getElementById('formularioAgregarPlaya').classList.toggle('show-formulario')">Agregar Playa</button>
+
+        <div id="formularioAgregarPlaya" class="formulario-agregar-playa mt-4 p-3 bg-light border rounded">
+            <form action="/agregarPlaya" method="post" onsubmit="return validarFormulario()">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="ubicacion">Ubicación:</label>
+                    <input type="text" id="ubicacion" name="ubicacion" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Agregar Playa</button>
+            </form>
+        </div>
+        
+        <div id="alerta" class="alert" style="display: none;"></div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Función para animar el cambio de título
+        function cambiarTitulo() {
+            const titulo = document.getElementById('titulo');
+            const nuevoTitulo = "Playas de la Comunidad Valenciana";
+            let index = 0;
+
+            // Intervalo para cambiar gradualmente el título
+            const intervalo = setInterval(() => {
+                titulo.textContent = nuevoTitulo.slice(0, index);
+                index++;
+                if (index > nuevoTitulo.length) {
+                    clearInterval(intervalo);
+                }
+            }, 100); // Velocidad de la animación (en milisegundos)
+        }
+
+        // Llamar a la función para cambiar el título cuando la página esté completamente cargada
+        document.addEventListener('DOMContentLoaded', () => {
+            cambiarTitulo();
+        });
+
+        function validarFormulario() {
+            var nombre = document.getElementById('nombre').value;
+            var ubicacion = document.getElementById('ubicacion').value;
+            var descripcion = document.getElementById('descripcion').value;
+            if (!nombre || !ubicacion || !descripcion) {
+                alert('Todos los campos son obligatorios.');
+                return false;
+            }
+            return true;
+        }
+
+        function mostrarAlerta(mensaje, tipo) {
+            var alerta = document.getElementById('alerta');
+            alerta.className = 'alert alert-' + tipo;
+            alerta.textContent = mensaje;
+            alerta.style.display = 'block';
+            setTimeout(() => alerta.style.display = 'none', 3000);
+        }
+
+        function eliminarPlaya(event) {
+            const playaId = event.target.closest('.eliminar-playa').querySelector('i').getAttribute('data-playa-id');
+            if (confirm("¿Estás seguro de que deseas eliminar esta playa?")) {
+                fetch('/eliminarPlaya/' + playaId, {
+                    method: 'DELETE'
+                }).then(() => {
+                    event.target.closest('li').remove();
+                    mostrarAlerta('Playa eliminada con éxito.', 'success');
+                }).catch(error => {
+                    console.error('Error al eliminar la playa:', error);
+                    mostrarAlerta('Error al eliminar la playa.', 'danger');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
